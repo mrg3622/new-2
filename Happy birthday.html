@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Love!</title>
+    <style>
+        /* Gaya dasar untuk layar penuh */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f3e5f5;
+        }
+        .slide {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: #fff;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+        }
+        /* Layer transparan untuk mengatur opacity background */
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5; /* Default opacity, bisa diubah per slide */
+        }
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.4); /* Transparansi untuk meningkatkan keterbacaan teks */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1, h2 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 10px;
+        }
+        .slide img, .slide video {
+            max-width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-top: 15px;
+        }
+        /* Tombol navigasi */
+        .nav-button {
+            position: fixed;
+            bottom: 20px;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .nav-button.left {
+            left: 20px;
+        }
+        .nav-button.right {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Pemutar musik otomatis -->
+<audio id="background-music" loop>
+    <source src="HAPPY BIRTHDAY trimmer.mp3" type="audio/mp3">
+</audio>
+
+<!-- Slide 1 -->
+<div class="slide active">
+    <div class="background-overlay" style="background-image: url('ultah/IMG_20230717_182858.JPG'); opacity: 0.5;"></div>
+    <div class="content">
+        <h1>Happy Birthday!</h1>
+        <p>Haii shafira rachma ramadhani yang cantik, selamat ulang tahun yaww!!!</p>
+        <img src="ultah/IMG-20240421-WA0001.jpg" alt="Gambar Slide 1">
+    </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide">
+    <div class="background-overlay" style="background-image: url('ultah/IMG-20240421-WA0001.jpg'); opacity: 0.5;"></div>
+    <div class="content">
+        <h2>Today is yours!</h2>
+        <p>aku minta maaf ya sayang, karna sama aku itu sering marah, sering membuatmu capek, mungkin sering menuntut banyak hal, aku juga mungkin belum bisa memahamimu sepenuhnya aku mintaa maaf banged ya untuk semuanya..</p>
+        <video src="Vidio slide 2.mp4" muted></video>
+    </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide">
+    <div class="background-overlay" style="background-image: url('ultah/IMG-20240617-WA0000.jpg'); opacity: 0.7;"></div>
+    <div class="content">
+        <h2>Haii Bidadari yang Turun ke Bumi</h2>
+        <p>Makasih banyak ya, udah mau menerima aku selama ini, semoga habis ini kita gk sering berantem lagi ya, bisa lebih memahami satu sama lain.</p>
+        <img src="ultah/IMG-20241015-WA0003.jpg" alt="Gambar Slide 3">
+    </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide">
+    <div class="background-overlay" style="background-image: url('ultah/IMG-20241015-WA0003.jpg'); opacity: 0.4;"></div>
+    <div class="content">
+        <h2>Selamat Ulang tahun ya</h2>
+        <p>Semoga di ulang tahunmu kali ini semuanya bisa segera tercapai ya, TRP cepat selesai, kp selesai, penelitian selesai, semua selesai pokoknya, dan semoga semua keinginanmu bisa tercapai aamiin.</p>
+        <video src="vidio slide 5.mp4" muted></video>
+    </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide">
+    <div class="background-overlay" style="background-image: url('ultah/IMG-20231211-WA0001\(1\).jpg'); opacity: 0.6;"></div>
+    <div class="content">
+        <h2>Happy Birthday, Love!</h2>
+        <p>Lets make a wish....Aamiin. Love you so much!! See you in Pekanbaru cantikk, jangan lama lama ya, i miss u so bad.</p>
+        <img src="ultah/IMG_20240403_214604.JPG" alt="Gambar Slide 5">
+    </div>
+</div>
+
+<!-- Tombol navigasi -->
+<div class="nav-button left" onclick="prevSlide()">⬅️ Previous</div>
+<div class="nav-button right" onclick="nextSlide()">Next ➡️</div>
+
+<script>
+    let slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    let music = document.getElementById('background-music');
+    let isMusicPlaying = false;
+
+    // Fungsi untuk memulai musik pada tap pertama kali
+    function startMusicOnFirstTap() {
+        if (!isMusicPlaying) {
+            music.play().then(() => {
+                isMusicPlaying = true; // Menandai bahwa musik sudah mulai diputar
+                document.removeEventListener('click', startMusicOnFirstTap); // Menghapus event listener
+            }).catch(error => {
+                console.log("Autoplay gagal pada tap pertama:", error);
+            });
+        }
+    }
+
+    // Memulai musik pada tap pertama dan berpindah ke slide berikutnya
+    document.addEventListener('click', (e) => {
+        startMusicOnFirstTap();
+        nextSlide();
+    });
+
+    // Fungsi untuk beralih ke slide berikutnya
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        let currentVideo = slides[currentSlide].querySelector('video');
+        if (currentVideo) currentVideo.pause(); // Hentikan video di slide saat ini
+
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+
+        let nextVideo = slides[currentSlide].querySelector('video');
+        if (nextVideo) nextVideo.play(); // Mulai video di slide berikutnya
+    }
+
+    // Fungsi untuk kembali ke slide sebelumnya
+    function prevSlide() {
+        slides[currentSlide].classList.remove('active');
+        let currentVideo = slides[currentSlide].querySelector('video');
+        if (currentVideo) currentVideo.pause(); // Hentikan video di slide saat ini
+
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+
+        let prevVideo = slides[currentSlide].querySelector('video');
+        if (prevVideo) prevVideo.play(); // Mulai video di slide sebelumnya
+    }
+</script>
+</body>
+</html>
